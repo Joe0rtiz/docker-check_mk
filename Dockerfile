@@ -7,12 +7,13 @@ MAINTAINER Joe Ortiz version: 0.1
 # update container
 RUN yum -y update
 RUN yum -y install epel-release
-RUN yum -y install gd gd-devel wget httpd php gcc make perl tar sendmail supervisor rrdtool perl-Time-HiRes rrdtool-perl php-gd gcc-c++
+RUN yum -y install gd gd-devel wget httpd php gcc make perl tar supervisor rrdtool perl-Time-HiRes rrdtool-perl php-gd gcc-c++ git httpd-devel python-devel
 
 # users and groups
 RUN adduser nagios
 RUN groupadd nagcmd
 RUN usermod -a -G nagcmd nagios
+RUN usermod -a -G nagcmd apache
 RUN usermod -a -G nagios apache
 
 # get archives
@@ -49,23 +50,29 @@ ADD check_mk_setup.conf /root/.check_mk_setup.conf
 RUN tar xf check_mk-1.2.5i5p4.tar.gz
 RUN cd check_mk-1.2.5i5p4 && ./setup.sh --yes
 
+# install mod_python
+RUN git clone https://github.com/grisha/mod_python.git mod_python
+RUN cd mod_python && ./configure
+RUN cd mod_python && make && make install
+RUN bash -c 'echo "LoadModule python_module modules/mod_python.so" > /etc/httpd/conf.modules.d/00-python.conf'
+
 # some extra stuff
 RUN touch /var/www/html/index.html
-RUN mkdir -p /data/perfdata /data/rrdcached.journal /data/mkeventd /data/check_mk /data/check_mk_conf /data/nagios.perfdump
-RUN chown nagios.nagcmd /usr/local/nagios/var/rw /data/perfdata /data/rrdcached.journal /data/mkeventd /data/check_mk /data/check_mk_conf /data/nagios.perfdump
+RUN mkdir -p /data/perfdata /data/rrdcached.journal /data/mkeventd /data/check_mk /data/check_mk_conf /data/nagios.perfdump /data/nagios.perfdump
+RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data /usr/local/nagios/etc/nagios.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
 RUN chmod g+rwx /usr/local/nagios/var/rw
 RUN chmod g+s /usr/local/nagios/var/rw
 ADD nagios.cfg /usr/local/nagios/etc/nagios.cfg
-ADD bulknpcd.cfg /usr/local/nagios/etc/bulknpcd.cfg
+ADD bulknpcd.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
 
 # init bug fix
 # RUN sed -i '/$NagiosBin -d $NagiosCfgFile/a (sleep 10; chmod 666 \/usr\/local\/nagios\/var\/rw\/nagios\.cmd) &' /etc/init.d/nagios
 
-# remove gcc
-RUN yum -y remove gcc gcc-c++
+# remove unwanted packages now
+RUN yum -y remove gcc gcc-c++ git httpd-devel python-devel
 
 # clean up
-RUN rm -fr nagios-4.0.8 nagios-4.0.8.tar.gz nagios-plugins-2.0.3 nagios-plugins-2.0.3.tar.gz pnp4nagios-0.6.24.tar.gz pnp4nagios-0.6.24 check_mk-1.2.5i5p4.tar.gz check_mk-1.2.5i5p4
+RUN rm -fr nagios-4.0.8 nagios-4.0.8.tar.gz nagios-plugins-2.0.3 nagios-plugins-2.0.3.tar.gz pnp4nagios-0.6.24.tar.gz pnp4nagios-0.6.24 check_mk-1.2.5i5p4.tar.gz check_mk-1.2.5i5p4 mod_python
 
 # port 80
 EXPOSE 25 80
@@ -73,5 +80,5 @@ EXPOSE 25 80
 # supervisor configuration
 ADD supervisord.conf /etc/supervisord.conf
 
-# start up nagios, sendmail, apache, npcd
+# start up nagios, apache, npcd
 CMD ["/usr/bin/supervisord"]
