@@ -40,9 +40,9 @@ RUN cd nagios-plugins-2.0.3 && make && make install
 RUN /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 
 # install pnp4nagios
-RUN tar xf check_mk-1.2.5i5p4.tar.gz
-RUN cd check_mk-1.2.5i5p4 && ./configure
-RUN cd check_mk-1.2.5i5p4 && make all && make fullinstall
+RUN tar xf pnp4nagios-0.6.24.tar.gz
+RUN cd pnp4nagios-0.6.24 && ./configure
+RUN cd pnp4nagios-0.6.24 && make all && make fullinstall
 
 # install check_mk
 ADD check_mk_setup.conf /root/.check_mk_setup.conf
