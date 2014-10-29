@@ -14,7 +14,6 @@ RUN adduser nagios
 RUN groupadd nagcmd
 RUN usermod -a -G nagcmd nagios
 RUN usermod -a -G nagcmd apache
-RUN usermod -a -G nagios apache
 
 # get archives
 ADD http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-4.0.8.tar.gz nagios-4.0.8.tar.gz
@@ -34,7 +33,7 @@ RUN chown nagios:nagios /usr/local/nagios/etc/htpasswd.users
 
 # install plugins
 RUN tar xf nagios-plugins-2.0.3.tar.gz
-RUN cd nagios-plugins-2.0.3 && ./configure --with-nagios-user=nagios --with-nagios-group=nagios
+RUN cd nagios-plugins-2.0.3 && ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd
 RUN cd nagios-plugins-2.0.3 && make && make install
 
 # create initial config
@@ -42,7 +41,7 @@ RUN /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 
 # install pnp4nagios
 RUN tar xf pnp4nagios-0.6.24.tar.gz
-RUN cd pnp4nagios-0.6.24 && ./configure
+RUN cd pnp4nagios-0.6.24 && ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd
 RUN cd pnp4nagios-0.6.24 && make all && make fullinstall
 
 # install check_mk
@@ -59,11 +58,11 @@ RUN bash -c 'echo "LoadModule python_module modules/mod_python.so" > /etc/httpd/
 # some extra stuff
 RUN touch /var/www/html/index.html
 RUN mkdir -p /data/perfdata /data/rrdcached.journal /data/mkeventd /data/check_mk /data/check_mk_conf /data/nagios.perfdump /data/nagios.perfdump
-RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data /usr/local/nagios/etc/nagios.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
 RUN chmod g+rwx /usr/local/nagios/var/rw
 RUN chmod g+s /usr/local/nagios/var/rw
 ADD nagios.cfg /usr/local/nagios/etc/nagios.cfg
 ADD bulknpcd.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
+RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data /usr/local/nagios/etc/nagios.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
 
 # init bug fix
 # RUN sed -i '/$NagiosBin -d $NagiosCfgFile/a (sleep 10; chmod 666 \/usr\/local\/nagios\/var\/rw\/nagios\.cmd) &' /etc/init.d/nagios
@@ -75,7 +74,7 @@ RUN yum -y remove gcc gcc-c++ git httpd-devel python-devel
 RUN rm -fr nagios-4.0.8 nagios-4.0.8.tar.gz nagios-plugins-2.0.3 nagios-plugins-2.0.3.tar.gz pnp4nagios-0.6.24.tar.gz pnp4nagios-0.6.24 check_mk-1.2.5i5p4.tar.gz check_mk-1.2.5i5p4 mod_python
 
 # port 80
-EXPOSE 25 80
+EXPOSE 80
 
 # supervisor configuration
 ADD supervisord.conf /etc/supervisord.conf
