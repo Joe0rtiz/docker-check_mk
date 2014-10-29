@@ -16,7 +16,7 @@ RUN usermod -a -G nagcmd nagios
 RUN usermod -a -G nagios apache
 
 # get archives
-ADD http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-4.0.8.tar.gz nagios-4.0.8.tar.gz
+ADD http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-4.0.8.tar.gz nagios-4.0.8.tar.gz
 ADD http://nagios-plugins.org/download/nagios-plugins-2.0.3.tar.gz nagios-plugins-2.0.3.tar.gz
 ADD http://downloads.sourceforge.net/project/pnp4nagios/PNP-0.6/pnp4nagios-0.6.24.tar.gz pnp4nagios-0.6.24.tar.gz
 ADD http://mathias-kettner.com/download/check_mk-1.2.5i5p4.tar.gz check_mk-1.2.5i5p4.tar.gz
