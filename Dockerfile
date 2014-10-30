@@ -33,7 +33,7 @@ RUN chown nagios:nagios /usr/local/nagios/etc/htpasswd.users
 
 # install plugins
 RUN tar xf nagios-plugins-2.0.3.tar.gz
-RUN cd nagios-plugins-2.0.3 && ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd
+RUN cd nagios-plugins-2.0.3 && ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd --with-perfdata-dir=/data/perfdata --with-perfdata-spool-dir=/data/perfspool
 RUN cd nagios-plugins-2.0.3 && make && make install
 
 # create initial config
