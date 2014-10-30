@@ -48,6 +48,7 @@ ADD pnp4nagios/process_perfdata.cfg /usr/local/pnp4nagios/etc/process_perfdata.c
 
 # install check_mk
 ADD check_mk/check_mk_setup.conf /root/.check_mk_setup.conf
+ADD check_mk/check_mk_setup.conf /.check_mk_setup.conf
 RUN tar xf check_mk-1.2.5i5p4.tar.gz
 RUN cd check_mk-1.2.5i5p4 && ./setup.sh --yes
 
@@ -74,7 +75,7 @@ RUN yum -y remove gcc gcc-c++ git httpd-devel python-devel
 RUN yum clean all
 
 # clean up
-RUN rm -fr nagios-4.0.8 nagios-4.0.8.tar.gz nagios-plugins-2.0.3 nagios-plugins-2.0.3.tar.gz pnp4nagios-0.6.24.tar.gz pnp4nagios-0.6.24 check_mk-1.2.5i5p4.tar.gz check_mk-1.2.5i5p4 mod_python /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/etc/config_local.php
+RUN rm -fr nagios-4.0.8 nagios-4.0.8.tar.gz nagios-plugins-2.0.3 nagios-plugins-2.0.3.tar.gz pnp4nagios-0.6.24.tar.gz pnp4nagios-0.6.24 check_mk-1.2.5i5p4.tar.gz check_mk-1.2.5i5p4 mod_python /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/etc/config_local.php /.check_mk_setup.conf /root/.check_mk_setup.conf
 
 # port 80
 EXPOSE 80
