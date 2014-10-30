@@ -44,6 +44,7 @@ RUN tar xf pnp4nagios-0.6.24.tar.gz
 RUN cd pnp4nagios-0.6.24 && ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd --with-perfdata-dir=/data/perfdata --with-perfdata-spool-dir=/data/perfspool
 RUN cd pnp4nagios-0.6.24 && make all && make fullinstall
 ADD pnp4nagios/config.php /usr/local/pnp4nagios/etc/config.php
+ADD pnp4nagios/process_perfdata.cfg /usr/local/pnp4nagios/etc/process_perfdata.cfg
 
 # install check_mk
 ADD check_mk/check_mk_setup.conf /root/.check_mk_setup.conf
