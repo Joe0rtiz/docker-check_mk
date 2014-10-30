@@ -83,5 +83,5 @@ EXPOSE 80
 # supervisor configuration
 ADD supervisord.conf /etc/supervisord.conf
 
-# start up nagios, apache, npcd
+# start up nagios, apache, npcd, mkeventd
 CMD ["/usr/bin/supervisord"]
