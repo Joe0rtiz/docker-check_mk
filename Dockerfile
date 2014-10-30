@@ -33,7 +33,7 @@ RUN chown nagios:nagios /usr/local/nagios/etc/htpasswd.users
 
 # install plugins
 RUN tar xf nagios-plugins-2.0.3.tar.gz
-RUN cd nagios-plugins-2.0.3 && ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd --with-perfdata-dir=/data/perfdata --with-perfdata-spool-dir=/data/perfspool
+RUN cd nagios-plugins-2.0.3 && ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd
 RUN cd nagios-plugins-2.0.3 && make && make install
 
 # create initial config
@@ -41,7 +41,7 @@ RUN /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 
 # install pnp4nagios
 RUN tar xf pnp4nagios-0.6.24.tar.gz
-RUN cd pnp4nagios-0.6.24 && ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd
+RUN cd pnp4nagios-0.6.24 && ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd --with-perfdata-dir=/data/perfdata --with-perfdata-spool-dir=/data/perfspool
 RUN cd pnp4nagios-0.6.24 && make all && make fullinstall
 
 # install check_mk
