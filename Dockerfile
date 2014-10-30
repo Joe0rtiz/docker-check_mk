@@ -61,11 +61,11 @@ RUN bash -c 'echo "LoadModule python_module modules/mod_python.so" > /etc/httpd/
 # some extra stuff
 RUN touch /var/www/html/index.html
 RUN mkdir -p /data/perfdata /data/rrdcached.journal /data/mkeventd /data/check_mk /data/check_mk_conf /data/nagios.perfdump /data/nagios.perfdump /var/run/rrdcached
-RUN chmod g+rwx /usr/local/nagios/var/rw
-RUN chmod g+s /usr/local/nagios/var/rw
 ADD nagios/nagios.cfg /usr/local/nagios/etc/nagios.cfg
 ADD nagios/bulknpcd.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
 RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data /usr/local/nagios/etc/nagios.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg /var/run/rrdcached /usr/local/pnp4nagios/etc/config.php
+RUN chmod g+rwx /usr/local/nagios/var/rw /data/check_mk_conf/mkeventd.d/wato
+RUN chmod g+s /usr/local/nagios/var/rw /data/check_mk_conf/mkeventd.d/wato
 
 # init bug fix
 # RUN sed -i '/$NagiosBin -d $NagiosCfgFile/a (sleep 10; chmod 666 \/usr\/local\/nagios\/var\/rw\/nagios\.cmd) &' /etc/init.d/nagios
