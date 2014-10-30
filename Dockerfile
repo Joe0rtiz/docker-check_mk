@@ -59,12 +59,12 @@ RUN bash -c 'echo "LoadModule python_module modules/mod_python.so" > /etc/httpd/
 
 # some extra stuff
 RUN touch /var/www/html/index.html
-RUN mkdir -p /data/perfdata /data/rrdcached.journal /data/mkeventd /data/check_mk /data/check_mk_conf /data/nagios.perfdump /data/nagios.perfdump
+RUN mkdir -p /data/perfdata /data/rrdcached.journal /data/mkeventd /data/check_mk /data/check_mk_conf /data/nagios.perfdump /data/nagios.perfdump /var/run/rrdcached
 RUN chmod g+rwx /usr/local/nagios/var/rw
 RUN chmod g+s /usr/local/nagios/var/rw
 ADD nagios/nagios.cfg /usr/local/nagios/etc/nagios.cfg
 ADD nagios/bulknpcd.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
-RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data /usr/local/nagios/etc/nagios.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
+RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data /usr/local/nagios/etc/nagios.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg /var/run/rrdcached /usr/local/pnp4nagios/etc/config.php
 
 # init bug fix
 # RUN sed -i '/$NagiosBin -d $NagiosCfgFile/a (sleep 10; chmod 666 \/usr\/local\/nagios\/var\/rw\/nagios\.cmd) &' /etc/init.d/nagios
@@ -74,7 +74,7 @@ RUN yum -y remove gcc gcc-c++ git httpd-devel python-devel
 RUN yum clean all
 
 # clean up
-RUN rm -fr nagios-4.0.8 nagios-4.0.8.tar.gz nagios-plugins-2.0.3 nagios-plugins-2.0.3.tar.gz pnp4nagios-0.6.24.tar.gz pnp4nagios-0.6.24 check_mk-1.2.5i5p4.tar.gz check_mk-1.2.5i5p4 mod_python /usr/local/pnp4nagios/share/install.php
+RUN rm -fr nagios-4.0.8 nagios-4.0.8.tar.gz nagios-plugins-2.0.3 nagios-plugins-2.0.3.tar.gz pnp4nagios-0.6.24.tar.gz pnp4nagios-0.6.24 check_mk-1.2.5i5p4.tar.gz check_mk-1.2.5i5p4 mod_python /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/etc/config_local.php
 
 # port 80
 EXPOSE 80
