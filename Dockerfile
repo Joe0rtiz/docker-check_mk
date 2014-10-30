@@ -43,9 +43,10 @@ RUN /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
 RUN tar xf pnp4nagios-0.6.24.tar.gz
 RUN cd pnp4nagios-0.6.24 && ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd --with-perfdata-dir=/data/perfdata --with-perfdata-spool-dir=/data/perfspool
 RUN cd pnp4nagios-0.6.24 && make all && make fullinstall
+ADD pnp4nagios/config.php /usr/local/pnp4nagios/etc/config.php
 
 # install check_mk
-ADD check_mk_setup.conf /root/.check_mk_setup.conf
+ADD check_mk/check_mk_setup.conf /root/.check_mk_setup.conf
 RUN tar xf check_mk-1.2.5i5p4.tar.gz
 RUN cd check_mk-1.2.5i5p4 && ./setup.sh --yes
 
@@ -60,8 +61,8 @@ RUN touch /var/www/html/index.html
 RUN mkdir -p /data/perfdata /data/rrdcached.journal /data/mkeventd /data/check_mk /data/check_mk_conf /data/nagios.perfdump /data/nagios.perfdump
 RUN chmod g+rwx /usr/local/nagios/var/rw
 RUN chmod g+s /usr/local/nagios/var/rw
-ADD nagios.cfg /usr/local/nagios/etc/nagios.cfg
-ADD bulknpcd.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
+ADD nagios/nagios.cfg /usr/local/nagios/etc/nagios.cfg
+ADD nagios/bulknpcd.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
 RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data /usr/local/nagios/etc/nagios.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
 
 # init bug fix
