@@ -60,7 +60,7 @@ RUN chown nagios:nagios /usr/local/nagios/etc/htpasswd.users
 RUN wget -nv -O /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz http://nagios-plugins.org/download/nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz && \
     tar xf nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz && \
     cd nagios-plugins-$NAGIOS_PLUGINS_VERSION && \
-    ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd \
+    ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd && \
     make && \
     make install && \
     rm -fr /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz nagios-plugins-$NAGIOS_PLUGINS_VERSION
