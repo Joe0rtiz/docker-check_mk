@@ -1,8 +1,13 @@
-# install nagios 4.0.8 / pnp4nagios 0.6.24 / check_mk 1.2.5i5p4 on centos 7
+# install nagios 4.0.8 / nagios plugins 2.0.3 / pnp4nagios 0.6.24 / check_mk 1.2.5i5p4 on centos 7
 FROM centos:centos7
 
 # info
 MAINTAINER Joe Ortiz version: 0.2
+
+ENV NAGIOS_VERSION 4.0.8
+ENV NAGIOS_PLUGINS_VERSION 2.0.3
+ENV PNP4NAGIOS_VERSION  0.6.24
+ENV CHECKMK_VERSION 1.2.5i5p4
 
 # update container
 RUN yum -y update && \
@@ -35,9 +40,9 @@ RUN adduser nagios && \
     usermod -a -G nagcmd apache
 
 # install nagios
-RUN wget -nv -O /nagios-4.0.8.tar.gz http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-4.0.8.tar.gz && \
-    tar xf nagios-4.0.8.tar.gz && \
-    cd nagios-4.0.8 && \
+RUN wget -nv -O /nagios-$NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-$NAGIOS_VERSION.tar.gz && \
+    tar xf nagios-$NAGIOS_VERSION.tar.gz && \
+    cd nagios-$NAGIOS_VERSION && \
     ./configure --with-command-group=nagcmd && \
     make all && \
     make install && \
@@ -45,29 +50,29 @@ RUN wget -nv -O /nagios-4.0.8.tar.gz http://downloads.sourceforge.net/project/na
     make install-config && \
     make install-commandmode && \
     make install-webconf && \
-    rm -fr /nagios-4.0.8.tar.gz /nagios-4.0.8
+    rm -fr /nagios-$NAGIOS_VERSION.tar.gz /nagios-$NAGIOS_VERSION
 
 # user/password = nagiosadmin/nagiosadmin
 RUN echo "nagiosadmin:M.t9dyxR3OZ3E" > /usr/local/nagios/etc/htpasswd.users
 RUN chown nagios:nagios /usr/local/nagios/etc/htpasswd.users
 
 # install plugins
-RUN wget -nv -O /nagios-plugins-2.0.3.tar.gz http://nagios-plugins.org/download/nagios-plugins-2.0.3.tar.gz && \
-    tar xf nagios-plugins-2.0.3.tar.gz && \
-    cd nagios-plugins-2.0.3 && \
+RUN wget -nv -O /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz http://nagios-plugins.org/download/nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz && \
+    tar xf nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz && \
+    cd nagios-plugins-$NAGIOS_PLUGINS_VERSION && \
     ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd \
     make && \
     make install && \
-    rm -fr /nagios-plugins-2.0.3.tar.gz nagios-plugins-2.0.3
+    rm -fr /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz nagios-plugins-$NAGIOS_PLUGINS_VERSION
 
 # install pnp4nagios
-RUN wget -nv -O /pnp4nagios-0.6.24.tar.gz http://downloads.sourceforge.net/project/pnp4nagios/PNP-0.6/pnp4nagios-0.6.24.tar.gz && \
-    tar xf pnp4nagios-0.6.24.tar.gz && \
-    cd pnp4nagios-0.6.24 && \
+RUN wget -nv -O /pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/pnp4nagios/PNP-0.6/pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz && \
+    tar xf pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz && \
+    cd pnp4nagios-$PNP4NAGIOS_VERSION && \
     ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd --with-perfdata-dir=/data/perfdata --with-perfdata-spool-dir=/data/perfspool && \
     make all && \
     make fullinstall && \
-    rm -fr /pnp4nagios-0.6.24.tar.gz pnp4nagios-0.6.24 /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/etc/config_local.php
+    rm -fr /pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz pnp4nagios-$PNP4NAGIOS_VERSION /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/etc/config_local.php
 
 ADD pnp4nagios/config.php /usr/local/pnp4nagios/etc/config.php
 ADD pnp4nagios/process_perfdata.cfg /usr/local/pnp4nagios/etc/process_perfdata.cfg
@@ -75,11 +80,11 @@ ADD pnp4nagios/process_perfdata.cfg /usr/local/pnp4nagios/etc/process_perfdata.c
 # install check_mk
 ADD check_mk/check_mk_setup.conf /root/.check_mk_setup.conf
 ADD check_mk/check_mk_setup.conf /.check_mk_setup.conf
-RUN wget -nv -O /check_mk-1.2.5i5p4.tar.gz http://mathias-kettner.com/download/check_mk-1.2.5i5p4.tar.gz && \
-    tar xf check_mk-1.2.5i5p4.tar.gz && \
-    cd check_mk-1.2.5i5p4 && \
+RUN wget -nv -O /check_mk-$CHECKMK_VERSION.tar.gz http://mathias-kettner.com/download/check_mk-$CHECKMK_VERSION.tar.gz && \
+    tar xf check_mk-$CHECKMK_VERSION.tar.gz && \
+    cd check_mk-$CHECKMK_VERSION && \
     ./setup.sh --yes && \
-    rm -fr /check_mk-1.2.5i5p4.tar.gz check_mk-1.2.5i5p4 /.check_mk_setup.conf /root/.check_mk_setup.conf
+    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz check_mk-$CHECKMK_VERSION /.check_mk_setup.conf /root/.check_mk_setup.conf
 
 # install mod_python
 RUN git clone https://github.com/grisha/mod_python.git mod_python && \
@@ -111,7 +116,7 @@ EXPOSE 80
 
 # supervisor configuration
 ADD supervisord.conf /etc/supervisord.conf
-ADD ./bin    /app/bin
+ADD ./bin /app/bin
 
 # Recompile Check_MK Config and then start up nagios, apache, npcd, mkeventd
 ENTRYPOINT [ "/bin/bash" ]
