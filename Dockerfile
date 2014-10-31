@@ -7,7 +7,7 @@ MAINTAINER Joe Ortiz version: 0.1
 # update container
 RUN yum -y update
 RUN yum -y install epel-release
-RUN yum -y install gd gd-devel wget httpd php gcc make perl tar supervisor rrdtool perl-Time-HiRes rrdtool-perl php-gd gcc-c++ git httpd-devel python-devel sudo
+RUN yum -y install gd gd-devel wget httpd php gcc make perl tar supervisor rrdtool perl-Time-HiRes rrdtool-perl php-gd gcc-c++ git httpd-devel python-devel sudo traceroute
 
 # users and groups
 RUN adduser nagios
