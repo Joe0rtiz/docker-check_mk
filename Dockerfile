@@ -5,15 +5,15 @@ FROM centos:centos7
 MAINTAINER Joe Ortiz version: 0.1
 
 # update container
-RUN yum -y update
-RUN yum -y install epel-release
-RUN yum -y install gd gd-devel wget httpd php gcc make perl tar supervisor rrdtool perl-Time-HiRes rrdtool-perl php-gd gcc-c++ git httpd-devel python-devel sudo traceroute
+RUN yum -y update && \
+  yum -y install epel-release && \
+  yum -y install gd gd-devel wget httpd php gcc make perl tar supervisor rrdtool perl-Time-HiRes rrdtool-perl php-gd gcc-c++ git httpd-devel python-devel sudo traceroute
 
 # users and groups
-RUN adduser nagios
-RUN groupadd nagcmd
-RUN usermod -a -G nagcmd nagios
-RUN usermod -a -G nagcmd apache
+RUN adduser nagios && \
+  groupadd nagcmd && \
+  usermod -a -G nagcmd nagios && \
+  usermod -a -G nagcmd apache
 
 # get archives
 ADD http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-4.0.8.tar.gz nagios-4.0.8.tar.gz
@@ -22,10 +22,18 @@ ADD http://downloads.sourceforge.net/project/pnp4nagios/PNP-0.6/pnp4nagios-0.6.2
 ADD http://mathias-kettner.com/download/check_mk-1.2.5i5p4.tar.gz check_mk-1.2.5i5p4.tar.gz
 
 # install nagios
-RUN tar xf nagios-4.0.8.tar.gz
-RUN cd nagios-4.0.8 && ./configure --with-command-group=nagcmd
-RUN cd nagios-4.0.8 && make all && make install && make install-init
-RUN cd nagios-4.0.8 && make install-config && make install-commandmode && make install-webconf
+RUN wget -nv -O /nagios-4.0.8.tar.gz http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-4.0.8.tar.gz && \
+  tar xf nagios-4.0.8.tar.gz && \
+  cd nagios-4.0.8 && \
+  ./configure --with-command-group=nagcmd && \
+  make all && \
+  make install && \
+  make install-init && \
+  cd nagios-4.0.8 && \
+  make install-config && \
+  make install-commandmode && \
+  make install-webconf && \
+  rm -fr /nagios-4.0.8.tar.gz /nagios-4.0.8
 
 # user/password = nagiosadmin/nagiosadmin
 RUN echo "nagiosadmin:M.t9dyxR3OZ3E" > /usr/local/nagios/etc/htpasswd.users
@@ -82,6 +90,8 @@ EXPOSE 80
 
 # supervisor configuration
 ADD supervisord.conf /etc/supervisord.conf
+ADD ./bin    /app/bin
 
-# start up nagios, apache, npcd, mkeventd
-CMD ["/usr/bin/supervisord"]
+# Recompile Check_MK Config and then start up nagios, apache, npcd, mkeventd
+ENTRYPOINT [ "/bin/bash" ]
+CMD [ "/app/bin/start" ]

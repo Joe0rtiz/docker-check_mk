@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/usr/bin/cmk -U
+/usr/bin/supervisord
