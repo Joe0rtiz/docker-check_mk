@@ -174,7 +174,9 @@ RUN wget http://files.directadmin.com/services/custombuild/php-5.6.2.tar.gz && \
         --enable-ftp \
         --enable-sockets \
         --enable-soap \
-        --enable-mbstring && \
+        --enable-mbstring \
+        --enable-shared=no \
+        --enable-static=yes && \
     make && \
     make install && \
     rm -fr /php-5.6.2.tar.gz /php-5.6.2
