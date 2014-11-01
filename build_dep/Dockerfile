@@ -18,7 +18,7 @@ RUN wget http://files.directadmin.com/services/custombuild/libtool-2.4.tar.gz &&
 RUN wget http://files.directadmin.com/services/custombuild/pcre-8.36.tar.gz && \
     tar xf pcre-8.36.tar.gz && \
     cd pcre-8.36 && \
-    ./configure --enable-utf8 --enable-unicode-properties --disable-shared --prefix=/opt/pcre && \
+    ./configure --enable-utf8 --enable-unicode-properties --prefix=/opt/pcre && \
     make && \
     make install && \
     rm -fr /pcre-8.36.tar.gz /pcre-8.36
