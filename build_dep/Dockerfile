@@ -94,7 +94,7 @@ RUN wget http://files.directadmin.com/services/custombuild/jpegsrc.v9.tar.gz && 
     cd jpeg-9 && \
     ./configure --prefix=/opt/libjpeg && \
     make && \
-    make install-lib && \
+    make install && \
     rm -fr /jpegsrc.v9.tar.gz /jpeg-9
 
 # build png
