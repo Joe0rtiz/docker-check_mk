@@ -37,9 +37,9 @@ RUN wget http://files.directadmin.com/services/custombuild/httpd-2.4.10.tar.gz &
     wget http://files.directadmin.com/services/custombuild/apr-1.5.1.tar.gz && \
     wget http://files.directadmin.com/services/custombuild/apr-util-1.5.4.tar.gz && \
     tar xf httpd-2.4.10.tar.gz && \
-    tar xzf apr-1.5.1.tar.gz --no-same-owner -C httpd-2.4.10/srclib && \
+    tar xf apr-1.5.1.tar.gz --no-same-owner -C httpd-2.4.10/srclib && \
     mv -f httpd-2.4.10/srclib/apr-1.5.1 httpd-2.4.10/srclib/apr && \
-    tar xzf apr-util-1.5.4.tar.gz --no-same-owner -C apr-util-1.5.4/srclib && \
+    tar xf apr-util-1.5.4.tar.gz --no-same-owner -C httpd-2.4.10/srclib && \
     mv -f httpd-2.4.10/srclib/apr-util-1.5.4 httpd-2.4.10/srclib/apr-util && \
     cd httpd-2.4.10 && \
     ./configure \
