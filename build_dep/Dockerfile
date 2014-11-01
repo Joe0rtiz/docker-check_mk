@@ -9,7 +9,7 @@ RUN apt-get update && \
 RUN wget http://files.directadmin.com/services/custombuild/libtool-2.4.tar.gz && \
     tar xf libtool-2.4.tar.gz && \
     cd libtool-2.4 && \
-    ./configure --prefix=/opt/libtool --enable-static && \
+    ./configure --prefix=/opt/libtool -all-static && \
     make && \
     make install && \
     rm -fr /libtool-2.4.tar.gz /libtool-2.4
