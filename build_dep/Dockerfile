@@ -22,3 +22,12 @@ RUN wget http://files.directadmin.com/services/custombuild/pcre-8.36.tar.gz && \
     make && \
     make install && \
     rm -fr pcre-8.36.tar.gz pcre-8.36
+
+# build zlib
+RUN wget http://files.directadmin.com/services/custombuild/zlib-1.2.8.tar.gz && \
+    tar xf zlib-1.2.8.tar.gz && \
+    cd zlib-1.2.8 && \
+    ./configure --prefix=/opt/zlib && \
+    make && \
+    make install && \
+    rm -fr zlib-1.2.8.tar.gz zlib-1.2.8
