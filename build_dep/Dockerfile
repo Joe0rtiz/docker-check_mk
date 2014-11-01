@@ -69,3 +69,112 @@ RUN wget http://files.directadmin.com/services/custombuild/httpd-2.4.10.tar.gz &
     make && \
     make install && \
     rm -fr /httpd-2.4.10.tar.gz /httpd-2.4.10 /apr-1.5.1.tar.gz /apr-util-1.5.4.tar.gz
+
+# build curl
+RUN wget http://files.directadmin.com/services/custombuild/curl-7.38.0.tar.gz && \
+    tar xf curl-7.38.0.tar.gz && \
+    cd curl-7.38.0 && \
+    ./configure --prefix=/opt/curl && \
+    make && \
+    make install && \
+    rm -fr /curl-7.38.0.tar.gz /curl-7.38.0
+
+# build libxml2
+RUN wget http://files.directadmin.com/services/custombuild/libxml2-2.9.2.tar.gz && \
+    tar xf libxml2-2.9.2.tar.gz && \
+    cd libxml2-2.9.2 && \
+    ./configure --prefix=/opt/libxml --without-python --with-zlib=/opt/zlib && \
+    make && \
+    make install && \
+    rm -fr /libxml2-2.9.2.tar.gz /libxml2-2.9.2
+
+# build jpeg
+RUN wget http://files.directadmin.com/services/custombuild/jpegsrc.v9.tar.gz && \
+    tar xf jpegsrc.v9.tar.gz && \
+    cd jpeg-9 && \
+    ./configure --prefix=/opt/libjpeg && \
+    make && \
+    make install-lib && \
+    rm -fr /jpegsrc.v9.tar.gz /jpeg-9
+
+# build png
+RUN wget http://files.directadmin.com/services/custombuild/libpng-1.6.12.tar.gz && \
+    tar xf libpng-1.6.12.tar.gz && \
+    cd libpng-1.6.12 && \
+    export LDFLAGS="-L/opt/zlib/lib" && \
+    export CPPFLAGS="-I/opt/zlib/include" && \
+    ./configure --prefix=/opt/libpng && \
+    make && \
+    make install && \
+    rm -fr /libpng-1.6.12.tar.gz /libpng-1.6.12
+
+# build freetype
+RUN wget http://files.directadmin.com/services/custombuild/freetype-2.5.3.tar.gz && \
+    tar xf freetype-2.5.3.tar.gz && \
+    cd freetype-2.5.3 && \
+    ./configure --prefix=/opt/freetype && \
+    make && \
+    make install && \
+    rm -fr /freetype-2.5.3.tar.gz /freetype-2.5.3
+
+# build iconv
+RUN wget http://files.directadmin.com/services/custombuild/libiconv-1.14.tar.gz && \
+    tar xf libiconv-1.14.tar.gz && \
+    cd libiconv-1.14 && \
+    ./configure --prefix=/opt/iconv --enable-extra-encodings && \
+    make && \
+    make install && \
+    rm -fr /libiconv-1.14.tar.gz /libiconv-1.14
+
+# build libmcrypt
+RUN wget http://files.directadmin.com/services/custombuild/libmcrypt-2.5.8.tar.gz && \
+    tar xf libmcrypt-2.5.8.tar.gz && \
+    cd libmcrypt-2.5.8 && \
+    ./configure --prefix=/opt/mcrypt --enable-ltdl-install && \
+    make && \
+    make install && \
+    rm -fr /libmcrypt-2.5.8.tar.gz /libmcrypt-2.5.8
+
+# build libxslt
+RUN wget http://files.directadmin.com/services/custombuild/libxslt-1.1.28.tar.gz && \
+    tar xf libxslt-1.1.28.tar.gz && \
+    cd libxslt-1.1.28 && \
+    ./configure --prefix=/opt/libxslt --with-libxml-prefix=/opt/libxml --with-libxml-include-prefix=/opt/libxml/include --with-libxml-libs-prefix=/opt/libxml/lib && \
+    make && \
+    make install && \
+    rm -fr /libxslt-1.1.28.tar.gz /libxslt-1.1.28
+
+# build php
+RUN wget http://files.directadmin.com/services/custombuild/php-5.6.2.tar.gz && \
+    tar xf php-5.6.2.tar.gz && \
+    cd php-5.6.2 && \
+    ./configure \
+        --prefix=/opt/php \
+        --with-apxs2=/opt/bin/apxs \
+        --with-config-file-scan-dir=/opt/php/etc/php.conf.d \
+        --with-curl=/opt/curl \
+        --with-gd \
+        --enable-gd-native-ttf \
+        --with-gettext \
+        --with-jpeg-dir=/opt/libjpeg \
+        --with-freetype-dir=/opt/freetype \
+        --with-libxml-dir=/opt/libxml \
+        --with-mcrypt=/opt/mcrypt \
+        --with-mhash \
+        --with-pcre-regex=/opt/pcre \
+        --with-pear \
+        --with-png-dir=/opt/libpng \
+        --with-xsl=/opt/libxslt \
+        --with-zlib \
+        --with-zlib-dir=/opt/zlib \
+        --enable-zip \
+        --with-iconv=/opt/iconv \
+        --enable-bcmath \
+        --enable-calendar \
+        --enable-ftp \
+        --enable-sockets \
+        --enable-soap \
+        --enable-mbstring && \
+    make && \
+    make install && \
+    rm -fr /php-5.6.2.tar.gz /php-5.6.2
