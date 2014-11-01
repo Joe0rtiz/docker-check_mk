@@ -12,7 +12,7 @@ RUN wget http://files.directadmin.com/services/custombuild/libtool-2.4.tar.gz &&
     ./configure --prefix=/opt/libtool && \
     make && \
     make install && \
-    rm -fr libtool-2.4.tar.gz libtool-2.4
+    rm -fr /libtool-2.4.tar.gz /libtool-2.4
 
 # build pcre
 RUN wget http://files.directadmin.com/services/custombuild/pcre-8.36.tar.gz && \
@@ -21,7 +21,7 @@ RUN wget http://files.directadmin.com/services/custombuild/pcre-8.36.tar.gz && \
     ./configure --enable-utf8 --enable-unicode-properties --disable-shared --prefix=/opt/pcre && \
     make && \
     make install && \
-    rm -fr pcre-8.36.tar.gz pcre-8.36
+    rm -fr /pcre-8.36.tar.gz /pcre-8.36
 
 # build zlib
 RUN wget http://files.directadmin.com/services/custombuild/zlib-1.2.8.tar.gz && \
@@ -30,7 +30,7 @@ RUN wget http://files.directadmin.com/services/custombuild/zlib-1.2.8.tar.gz && 
     ./configure --prefix=/opt/zlib && \
     make && \
     make install && \
-    rm -fr zlib-1.2.8.tar.gz zlib-1.2.8
+    rm -fr /zlib-1.2.8.tar.gz /zlib-1.2.8
 
 # build apache
 RUN wget http://files.directadmin.com/services/custombuild/httpd-2.4.10.tar.gz && \
@@ -68,4 +68,4 @@ RUN wget http://files.directadmin.com/services/custombuild/httpd-2.4.10.tar.gz &
             	--enable-headers && \
     make && \
     make install && \
-    rm -fr httpd-2.4.10.tar.gz httpd-2.4.10 apr-1.5.1.tar.gz apr-util-1.5.4.tar.gz
+    rm -fr /httpd-2.4.10.tar.gz /httpd-2.4.10 /apr-1.5.1.tar.gz /apr-util-1.5.4.tar.gz
