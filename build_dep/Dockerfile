@@ -9,7 +9,7 @@ RUN apt-get update && \
 RUN wget http://files.directadmin.com/services/custombuild/libtool-2.4.tar.gz && \
     tar xf libtool-2.4.tar.gz && \
     cd libtool-2.4 && \
-    ./configure --prefix=/opt/libtool -all-static && \
+    ./configure --prefix=/opt/libtool && \
     make && \
     make install && \
     rm -fr /libtool-2.4.tar.gz /libtool-2.4
@@ -149,6 +149,7 @@ RUN wget http://files.directadmin.com/services/custombuild/php-5.6.2.tar.gz && \
     tar xf php-5.6.2.tar.gz && \
     cd php-5.6.2 && \
     ./configure \
+        LDFLAGS='-all-static' \
         --enable-static=yes \
         --enable-shared=no \
         --prefix=/opt/php \
