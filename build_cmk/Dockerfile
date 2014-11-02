@@ -15,13 +15,14 @@ RUN apt-get update && \
                        libapache2-mod-php5 \
                        libgd2-xpm-dev \
                        traceroute \
-                       sudo
+                       sudo && \
+    apt-get autoclean
 
 # users and groups
-RUN adduser nagios && \
-    groupadd nagcmd && \
-    usermod -a -G nagcmd nagios && \
-    usermod -a -G nagcmd apache
+RUN adduser nagios
+RUN groupadd nagcmd
+RUN usermod -a -G nagcmd nagios
+RUN usermod -a -G nagcmd apache
 
 # install nagios
 RUN agt-get install build-essential && \
