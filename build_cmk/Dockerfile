@@ -38,4 +38,4 @@ RUN apt-get install -y build-essential wget && \
     make install-webconf && \
     rm -fr /nagios-$NAGIOS_VERSION.tar.gz /nagios-$NAGIOS_VERSION && \
     apt-get autoremove -y build-essential wget && \
-    apt-get autoclean
+    apt-get autoremove -y build-essential && apt-get autoclean
