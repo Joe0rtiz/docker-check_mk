@@ -32,8 +32,8 @@ RUN usermod -a -G nagcmd www-data
 ENV BUILD_PKGS build-essential bzip2 dpkg-dev fakeroot g++ g++-4.7 libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl libdpkg-perl libfile-fcntllock-perl libidn11 libstdc++6-4.7-dev libtimedate-perl make patch wget
 
 # install nagios
-ONBUILD RUN apt-get update && apt-get install -y $BUILD_PKGS && \
-    wget -nv -O /nagios-$NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-$NAGIOS_VERSION.tar.gz && \
+ONBUILD RUN apt-get update && apt-get install -y $BUILD_PKGS
+ONBUILD RUN wget -nv -O /nagios-$NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-$NAGIOS_VERSION.tar.gz && \
     tar xf nagios-$NAGIOS_VERSION.tar.gz && \
     cd nagios-$NAGIOS_VERSION && \
     ./configure --with-command-group=nagcmd && \
