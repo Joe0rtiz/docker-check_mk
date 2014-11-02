@@ -27,7 +27,7 @@ RUN apt-get update && \
         --with-libxml-dir=/opt/libxml \
         --with-mcrypt=/opt/mcrypt \
         --with-mhash \
-        --with-pcre-regex=/opt/pcre \
+        --with-pcre-regex=/opt \
         --with-pear \
         --with-png-dir=/opt/libpng \
         --enable-dom \
