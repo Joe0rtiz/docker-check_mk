@@ -97,7 +97,7 @@ RUN apt-get update && \
     rm -fr /check_mk-$CHECKMK_VERSION.tar.gz check_mk-$CHECKMK_VERSION
 
 # some extra stuff
-RUN touch /var/www/html/index.html
+# RUN touch /var/www/html/index.html
 COPY nagios/nagios.cfg /usr/local/nagios/etc/nagios.cfg
 COPY nagios/bulknpcd.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
 RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data
