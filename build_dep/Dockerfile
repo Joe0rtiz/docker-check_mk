@@ -69,8 +69,8 @@ RUN apt-get update && \
             	--with-included-apr \
             	--with-pcre=/opt/pcre \
             	--with-z=/opt/zlib \
-            	--includedir=/opt/apache/include \
-            	--libexecdir=/opt/apache/lib \
+            	--includedir=/opt/apache/include/apache \
+            	--libexecdir=/opt/apache/lib/apache \
             	--datadir=/opt/apache/www \
             	--localstatedir=/opt/apache \
             	--enable-rewrite \
