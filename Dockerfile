@@ -42,9 +42,9 @@ RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     make install-config && \
     make install-commandmode && \
     make install-webconf && \
-    rm -fr /nagios-$NAGIOS_VERSION.tar.gz /nagios-$NAGIOS_VERSION && \
     apt-get autoremove -y $BUILD_PKGS && \
-    apt-get autoclean
+    apt-get autoclean && \
+    rm -fr /nagios-$NAGIOS_VERSION.tar.gz /nagios-$NAGIOS_VERSION
 
 # user/password = nagiosadmin/nagiosadmin
 RUN echo "nagiosadmin:M.t9dyxR3OZ3E" > /usr/local/nagios/etc/htpasswd.users
@@ -58,9 +58,9 @@ RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd && \
     make && \
     make install && \
-    rm -fr /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz nagios-plugins-$NAGIOS_PLUGINS_VERSION && \
     apt-get autoremove -y $BUILD_PKGS && \
-    apt-get autoclean
+    apt-get autoclean && \
+    rm -fr /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz nagios-plugins-$NAGIOS_PLUGINS_VERSION
 
 # install pnp4nagios
 RUN apt-get update && apt-get install -y $BUILD_PKGS && \
@@ -70,9 +70,9 @@ RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd --with-perfdata-dir=/data/perfdata --with-perfdata-spool-dir=/data/perfspool && \
     make all && \
     make fullinstall && \
-    rm -fr /pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz pnp4nagios-$PNP4NAGIOS_VERSION /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/etc/config_local.php && \
     apt-get autoremove -y $BUILD_PKGS && \
-    apt-get autoclean
+    apt-get autoclean && \
+    rm -fr /pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz pnp4nagios-$PNP4NAGIOS_VERSION /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/etc/config_local.php
 
 # install check_mk
 ADD check_mk/check_mk_setup.conf /root/.check_mk_setup.conf
@@ -82,6 +82,6 @@ RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     tar xf check_mk-$CHECKMK_VERSION.tar.gz && \
     cd check_mk-$CHECKMK_VERSION && \
     ./setup.sh --yes && \
-    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz check_mk-$CHECKMK_VERSION /.check_mk_setup.conf /root/.check_mk_setup.conf && \
     apt-get autoremove -y $BUILD_PKGS && \
-    apt-get autoclean
+    apt-get autoclean && \
+    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz check_mk-$CHECKMK_VERSION /.check_mk_setup.conf /root/.check_mk_setup.conf
