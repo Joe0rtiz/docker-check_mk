@@ -1,4 +1,8 @@
 #!/bin/bash
 
+# Verify Permissions are intact
+chown nagios.nagcmd -R /data
+chmod g+s /data
+
 /usr/bin/cmk -U
 /usr/bin/supervisord
