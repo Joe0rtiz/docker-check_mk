@@ -2,7 +2,7 @@
 FROM debian:latest
 
 # info
-MAINTAINER Joe Ortiz version: 0.2
+MAINTAINER Joe Ortiz version: 0.3
 
 ENV NAGIOS_VERSION 4.0.8
 ENV NAGIOS_PLUGINS_VERSION 2.0.3
