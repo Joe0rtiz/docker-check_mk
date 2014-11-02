@@ -38,7 +38,7 @@ ONBUILD RUN wget -nv -O /nagios-$NAGIOS_VERSION.tar.gz http://downloads.sourcefo
     cd nagios-$NAGIOS_VERSION && \
     ./configure --with-command-group=nagcmd && \
     make all && \
-    make install && \
+RUN cd nagios-$NAGIOS_VERSION && make install && \
     make install-init && \
     make install-config && \
     make install-commandmode && \
