@@ -100,8 +100,8 @@ RUN apt-get update && \
 # RUN touch /var/www/html/index.html
 COPY nagios/nagios.cfg /usr/local/nagios/etc/nagios.cfg
 COPY nagios/bulknpcd.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
-RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data
-RUN chmod g+s /usr/local/nagios/var/rw /data
+ONBUILD RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data
+ONBUILD RUN chmod g+s /usr/local/nagios/var/rw /data
 
 # supervisor configuration
 COPY supervisord.conf /etc/supervisord.conf
