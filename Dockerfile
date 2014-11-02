@@ -17,7 +17,9 @@ RUN apt-get update && \
                        libgd2-xpm-dev \
                        traceroute \
                        sudo  \
+                       supervisord \
                        rrdtool \
+                       rrdcached \
                        librrdtool-oo-perl \
                        php5 \
                        php5-gd && \
@@ -32,7 +34,8 @@ RUN usermod -a -G nagcmd www-data
 ENV BUILD_PKGS build-essential bzip2 dpkg-dev fakeroot g++ g++-4.7 libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl libdpkg-perl libfile-fcntllock-perl libidn11 libstdc++6-4.7-dev libtimedate-perl make patch wget
 
 # install nagios
-RUN apt-get update && apt-get install -y $BUILD_PKGS && \
+RUN apt-get update && \
+    apt-get install -y $BUILD_PKGS && \
     wget -nv -O /nagios-$NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-$NAGIOS_VERSION.tar.gz && \
     tar xf nagios-$NAGIOS_VERSION.tar.gz && \
     cd nagios-$NAGIOS_VERSION && \
@@ -52,7 +55,8 @@ RUN echo "nagiosadmin:M.t9dyxR3OZ3E" > /usr/local/nagios/etc/htpasswd.users
 RUN chown nagios:nagios /usr/local/nagios/etc/htpasswd.users
 
 # install plugins
-RUN apt-get update && apt-get install -y $BUILD_PKGS && \
+RUN apt-get update && \
+    apt-get install -y $BUILD_PKGS && \
     wget -nv -O /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz http://nagios-plugins.org/download/nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz && \
     tar xf nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz && \
     cd nagios-plugins-$NAGIOS_PLUGINS_VERSION && \
@@ -64,7 +68,8 @@ RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     rm -fr /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz nagios-plugins-$NAGIOS_PLUGINS_VERSION
 
 # install pnp4nagios
-RUN apt-get update && apt-get install -y $BUILD_PKGS && \
+RUN apt-get update && \
+    apt-get install -y $BUILD_PKGS && \
     wget -nv -O /pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/pnp4nagios/PNP-0.6/pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz && \
     tar xf pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz && \
     cd pnp4nagios-$PNP4NAGIOS_VERSION && \
@@ -75,10 +80,14 @@ RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     apt-get autoclean && \
     rm -fr /pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz pnp4nagios-$PNP4NAGIOS_VERSION /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/etc/config_local.php
 
+COPY pnp4nagios/config.php /usr/local/pnp4nagios/etc/config.php
+COPY pnp4nagios/process_perfdata.cfg /usr/local/pnp4nagios/etc/process_perfdata.cfg
+
 # install check_mk
 COPY check_mk/check_mk_setup.conf /root/.check_mk_setup.conf
 COPY check_mk/check_mk_setup.conf /.check_mk_setup.conf
-RUN apt-get update && apt-get install -y $BUILD_PKGS && \
+RUN apt-get update && \
+    apt-get install -y $BUILD_PKGS && \
     wget -nv -O /check_mk-$CHECKMK_VERSION.tar.gz http://mathias-kettner.com/download/check_mk-$CHECKMK_VERSION.tar.gz && \
     tar xf check_mk-$CHECKMK_VERSION.tar.gz && \
     cd check_mk-$CHECKMK_VERSION && \
@@ -86,3 +95,18 @@ RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     apt-get autoremove -y $BUILD_PKGS && \
     apt-get autoclean && \
     rm -fr /check_mk-$CHECKMK_VERSION.tar.gz check_mk-$CHECKMK_VERSION
+
+# some extra stuff
+RUN touch /var/www/html/index.html
+COPY nagios/nagios.cfg /usr/local/nagios/etc/nagios.cfg
+COPY nagios/bulknpcd.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
+RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data
+RUN chmod g+s /usr/local/nagios/var/rw /data
+
+# supervisor configuration
+COPY supervisord.conf /etc/supervisord.conf
+ADD ./bin /app/bin
+
+# Recompile Check_MK Config and then start up nagios, apache, npcd, mkeventd
+ENTRYPOINT [ "/bin/bash" ]
+CMD [ "/app/bin/start" ]
