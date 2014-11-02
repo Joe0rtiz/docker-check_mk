@@ -28,10 +28,10 @@ RUN groupadd nagcmd
 RUN usermod -a -G nagcmd nagios
 RUN usermod -a -G nagcmd www-data
 
-ENV BUILD_PKGS 'bzip2 dpkg-dev fakeroot g++ g++-4.7 libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl libdpkg-perl libfile-fcntllock-perl libidn11 libstdc++6-4.7-dev libtimedate-perl make patch wget'
+ENV BUILD_PKGS 'build-essential bzip2 dpkg-dev fakeroot g++ g++-4.7 libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl libdpkg-perl libfile-fcntllock-perl libidn11 libstdc++6-4.7-dev libtimedate-perl make patch wget'
 
 # install nagios
-RUN apt-get install -y $BUILD_PKGS && \
+RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     wget -nv -O /nagios-$NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-$NAGIOS_VERSION.tar.gz && \
     tar xf nagios-$NAGIOS_VERSION.tar.gz && \
     cd nagios-$NAGIOS_VERSION && \
@@ -51,7 +51,7 @@ RUN echo "nagiosadmin:M.t9dyxR3OZ3E" > /usr/local/nagios/etc/htpasswd.users
 RUN chown nagios:nagios /usr/local/nagios/etc/htpasswd.users
 
 # install plugins
-RUN apt-get install -y $BUILD_PKGS && \
+RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     wget -nv -O /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz http://nagios-plugins.org/download/nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz && \
     tar xf nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz && \
     cd nagios-plugins-$NAGIOS_PLUGINS_VERSION && \
@@ -63,7 +63,7 @@ RUN apt-get install -y $BUILD_PKGS && \
     apt-get autoclean
 
 # install pnp4nagios
-RUN apt-get install -y $BUILD_PKGS && \
+RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     wget -nv -O /pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/pnp4nagios/PNP-0.6/pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz && \
     tar xf pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz && \
     cd pnp4nagios-$PNP4NAGIOS_VERSION && \
@@ -77,7 +77,7 @@ RUN apt-get install -y $BUILD_PKGS && \
 # install check_mk
 ADD check_mk/check_mk_setup.conf /root/.check_mk_setup.conf
 ADD check_mk/check_mk_setup.conf /.check_mk_setup.conf
-RUN apt-get install -y $BUILD_PKGS && \
+RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     wget -nv -O /check_mk-$CHECKMK_VERSION.tar.gz http://mathias-kettner.com/download/check_mk-$CHECKMK_VERSION.tar.gz && \
     tar xf check_mk-$CHECKMK_VERSION.tar.gz && \
     cd check_mk-$CHECKMK_VERSION && \
