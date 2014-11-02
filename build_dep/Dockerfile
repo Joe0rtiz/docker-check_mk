@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 MAINTAINER Joe Ortiz
 
-ENV LIBTOOL    libtool-2.4
+#ENV LIBTOOL    libtool-2.4
 ENV PCRE      pcre-8.36
 ENV ZLIB      zlib-1.2.8
 ENV HTTPD     httpd-2.4.10
@@ -20,13 +20,13 @@ ENV APR       apr-1.5.1
 RUN apt-get update && \
     apt-get install -y wget gcc libcap-dev bzip2 make g++ python autoconf && \
 # build libtool
-    wget http://files.directadmin.com/services/custombuild/$LIBTOOL.tar.gz && \
-    tar xf $LIBTOOL.tar.gz && \
-    cd $LIBTOOL && \
-    ./configure --prefix=/opt/libtool && \
-    make && \
-    make install && \
-    rm -fr /$LIBTOOL.tar.gz /$LIBTOOL && \
+#    wget http://files.directadmin.com/services/custombuild/$LIBTOOL.tar.gz && \
+#    tar xf $LIBTOOL.tar.gz && \
+#    cd $LIBTOOL && \
+#    ./configure --prefix=/opt/libtool && \
+#    make && \
+#    make install && \
+#    rm -fr /$LIBTOOL.tar.gz /$LIBTOOL && \
 # build pcre
     cd / && wget http://files.directadmin.com/services/custombuild/$PCRE.tar.gz && \
     tar xf $PCRE.tar.gz && \
