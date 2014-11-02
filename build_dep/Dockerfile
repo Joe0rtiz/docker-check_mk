@@ -43,11 +43,11 @@ RUN wget http://files.directadmin.com/services/custombuild/httpd-2.4.10.tar.gz &
     mv -f httpd-2.4.10/srclib/apr-util-1.5.4 httpd-2.4.10/srclib/apr-util && \
     cd httpd-2.4.10 && \
     ./configure \
-            	--prefix=/opt/httpd \
-            	--exec-prefix=/opt/httpd \
+            	--prefix=/opt/apache \
+            	--exec-prefix=/opt/apache \
             	--bindir=/opt/bin \
             	--sbindir=/opt/sbin \
-            	--sysconfdir=/opt/httpd/conf \
+            	--sysconfdir=/opt/apache/conf \
             	--enable-so \
             	--enable-deflate \
             	--enable-unique-id \
@@ -149,11 +149,10 @@ RUN wget http://files.directadmin.com/services/custombuild/php-5.6.2.tar.gz && \
     tar xf php-5.6.2.tar.gz && \
     cd php-5.6.2 && \
     ./configure \
-        LDFLAGS='-all-static' \
         --enable-static=yes \
         --enable-shared=no \
         --prefix=/opt/php \
-        --with-apxs2=/opt/bin/apxs \
+        --with-apache=/opt/apache \
         --with-config-file-scan-dir=/opt/php/etc/php.conf.d \
         --with-curl=/opt/curl \
         --with-gd \
