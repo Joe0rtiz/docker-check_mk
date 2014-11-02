@@ -25,7 +25,7 @@ RUN usermod -a -G nagcmd nagios
 RUN usermod -a -G nagcmd www-data
 
 # install nagios
-RUN agt-get install build-essential && \
+RUN apt-get install build-essential && \
     wget -nv -O /nagios-$NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-$NAGIOS_VERSION.tar.gz && \
     tar xf nagios-$NAGIOS_VERSION.tar.gz && \
     cd nagios-$NAGIOS_VERSION && \
