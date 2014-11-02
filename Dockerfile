@@ -16,6 +16,9 @@ RUN apt-get update && \
                        libgd2-xpm-dev \
                        traceroute \
                        sudo && \
+                       rrdtool && \
+                       librrdtool-oo-perl && \
+                       php5 php5-gd
     apt-get autoclean
 
 # users and groups
