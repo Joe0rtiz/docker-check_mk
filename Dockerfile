@@ -17,7 +17,7 @@ RUN apt-get update && \
                        libgd2-xpm-dev \
                        traceroute \
                        sudo  \
-                       supervisord \
+                       supervisor \
                        rrdtool \
                        rrdcached \
                        librrdtool-oo-perl \
