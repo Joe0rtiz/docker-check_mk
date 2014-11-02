@@ -13,6 +13,7 @@ ENV CHECKMK_VERSION 1.2.5i5p4
 RUN apt-get update && \
     apt-get install -y apache2 \
                        libapache2-mod-php5 \
+                       libapache2-mod-python \
                        libgd2-xpm-dev \
                        traceroute \
                        sudo  \
