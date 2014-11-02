@@ -182,6 +182,7 @@ RUN apt-get update && \
         --enable-sockets \
         --enable-soap \
         --enable-mbstring \
+        --disable-cgi \
         --disable-all && \
     make && \
     make install && \
