@@ -25,7 +25,7 @@ RUN apt-get update && \
     cd / && wget http://files.directadmin.com/services/custombuild/$LIBXML.tar.gz && \
     tar xf $LIBXML.tar.gz && \
     cd $LIBXML && \
-    ./configure --enable-static --prefix=/opt/libxml --without-python --with-zlib=/opt/zlib && \
+    ./configure --enable-static --prefix=/opt/libxml --without-python --with-zlib=/opt && \
     make && \
     make install && \
     rm -fr /$LIBXML.tar.gz /$LIBXML && \
@@ -41,8 +41,8 @@ RUN apt-get update && \
     cd / && wget http://files.directadmin.com/services/custombuild/$LIBPNG.tar.gz && \
     tar xf $LIBPNG.tar.gz && \
     cd $LIBPNG && \
-    export LDFLAGS="-L/opt/zlib/lib" && \
-    export CPPFLAGS="-I/opt/zlib/include" && \
+    export LDFLAGS="-L/opt/lib" && \
+    export CPPFLAGS="-I/opt/include" && \
     ./configure --enable-static --prefix=/opt/libpng && \
     make && \
     make install && \
@@ -106,7 +106,7 @@ RUN apt-get update && \
         --enable-dom \
         --with-xsl=/opt/libxslt \
         --with-zlib \
-        --with-zlib-dir=/opt/zlib \
+        --with-zlib-dir=/opt \
         --enable-zip \
         --with-iconv=/opt/iconv \
         --enable-bcmath \
