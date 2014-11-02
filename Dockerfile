@@ -48,8 +48,8 @@ ONBUILD RUN wget -nv -O /nagios-$NAGIOS_VERSION.tar.gz http://downloads.sourcefo
     rm -fr /nagios-$NAGIOS_VERSION.tar.gz /nagios-$NAGIOS_VERSION
 
 # user/password = nagiosadmin/nagiosadmin
-RUN echo "nagiosadmin:M.t9dyxR3OZ3E" > /usr/local/nagios/etc/htpasswd.users
-RUN chown nagios:nagios /usr/local/nagios/etc/htpasswd.users
+ONBUILD RUN echo "nagiosadmin:M.t9dyxR3OZ3E" > /usr/local/nagios/etc/htpasswd.users
+ONBUILD RUN chown nagios:nagios /usr/local/nagios/etc/htpasswd.users
 
 # install plugins
 ONBUILD RUN apt-get update && apt-get install -y $BUILD_PKGS && \
