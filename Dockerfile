@@ -15,10 +15,10 @@ RUN apt-get update && \
                        libapache2-mod-php5 \
                        libgd2-xpm-dev \
                        traceroute \
-                       sudo && \
-                       rrdtool && \
-                       librrdtool-oo-perl && \
-                       php5 php5-gd
+                       sudo  \
+                       rrdtool \
+                       librrdtool-oo-perl \
+                       php5 php5-gd && \
     apt-get autoclean
 
 # users and groups
