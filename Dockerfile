@@ -76,8 +76,8 @@ RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     rm -fr /pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz pnp4nagios-$PNP4NAGIOS_VERSION /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/etc/config_local.php
 
 # install check_mk
-ADD check_mk/check_mk_setup.conf /root/.check_mk_setup.conf
-ADD check_mk/check_mk_setup.conf /.check_mk_setup.conf
+COPY check_mk/check_mk_setup.conf /root/.check_mk_setup.conf
+COPY check_mk/check_mk_setup.conf /.check_mk_setup.conf
 RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     wget -nv -O /check_mk-$CHECKMK_VERSION.tar.gz http://mathias-kettner.com/download/check_mk-$CHECKMK_VERSION.tar.gz && \
     tar xf check_mk-$CHECKMK_VERSION.tar.gz && \
