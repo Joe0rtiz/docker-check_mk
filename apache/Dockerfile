@@ -62,6 +62,6 @@ RUN apt-get update && \
               --enable-headers && \
     make && \
     make install && \
-    rm -fr /$HTTPD.tar.gz /$HTTPD /$APR.tar.gz /$APRUTIL.tar.gz && \
+    rm -fr /$HTTPD.tar.gz /$HTTPD /$APR.tar.gz /$APRUTIL.tar.gz /opt/apache/www/manual && \
     apt-get autoremove -y wget gcc libcap-dev bzip2 make g++ python autoconf && \
     apt-get clean
