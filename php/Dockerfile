@@ -49,4 +49,4 @@ RUN apt-get update && \
     make install && \
     rm -fr /$PHP.tar.gz /$PHP && \
     apt-get autoremove -y wget gcc libcap-dev bzip2 make g++ autoconf && \
-    apt-get clean
+    apt-get autoclean
