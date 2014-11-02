@@ -18,7 +18,8 @@ RUN apt-get update && \
                        sudo  \
                        rrdtool \
                        librrdtool-oo-perl \
-                       php5 php5-gd && \
+                       php5 \
+                       php5-gd && \
     apt-get autoclean
 
 # users and groups
@@ -27,7 +28,7 @@ RUN groupadd nagcmd
 RUN usermod -a -G nagcmd nagios
 RUN usermod -a -G nagcmd www-data
 
-ENV BUILD_PKGS 'build-essential bzip2 dpkg-dev fakeroot g++ g++-4.7 libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl libdpkg-perl libfile-fcntllock-perl libidn11 libstdc++6-4.7-dev libtimedate-perl make patch wget'
+ENV BUILD_PKGS 'bzip2 dpkg-dev fakeroot g++ g++-4.7 libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl libdpkg-perl libfile-fcntllock-perl libidn11 libstdc++6-4.7-dev libtimedate-perl make patch wget'
 
 # install nagios
 RUN apt-get install -y $BUILD_PKGS && \
