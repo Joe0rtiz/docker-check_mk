@@ -39,3 +39,19 @@ RUN apt-get install -y build-essential wget && \
     rm -fr /nagios-$NAGIOS_VERSION.tar.gz /nagios-$NAGIOS_VERSION && \
     apt-get autoremove -y build-essential wget && \
     apt-get autoremove -y build-essential && apt-get autoclean
+
+# user/password = nagiosadmin/nagiosadmin
+RUN echo "nagiosadmin:M.t9dyxR3OZ3E" > /usr/local/nagios/etc/htpasswd.users
+RUN chown nagios:nagios /usr/local/nagios/etc/htpasswd.users
+
+# install plugins
+RUN apt-get install -y build-essential wget && \
+    wget -nv -O /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz http://nagios-plugins.org/download/nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz && \
+    tar xf nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz && \
+    cd nagios-plugins-$NAGIOS_PLUGINS_VERSION && \
+    ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd && \
+    make && \
+    make install && \
+    rm -fr /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz nagios-plugins-$NAGIOS_PLUGINS_VERSION && \
+    apt-get autoremove -y build-essential wget && \
+    apt-get autoremove -y build-essential && apt-get autoclean
