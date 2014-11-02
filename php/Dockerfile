@@ -14,6 +14,7 @@ RUN apt-get update && \
         --enable-static=yes \
         --enable-shared=no \
         --prefix=/opt/php \
+        --with-apxs2=/opt/apache/bin/apxs \
         --with-apache=/opt/include \
         --with-config-file-scan-dir=/opt/php/etc/php.conf.d \
         --with-curl=/opt/curl \
