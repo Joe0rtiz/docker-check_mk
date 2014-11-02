@@ -84,4 +84,4 @@ RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     ./setup.sh --yes && \
     apt-get autoremove -y $BUILD_PKGS && \
     apt-get autoclean && \
-    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz check_mk-$CHECKMK_VERSION /.check_mk_setup.conf /root/.check_mk_setup.conf
+    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz check_mk-$CHECKMK_VERSION
