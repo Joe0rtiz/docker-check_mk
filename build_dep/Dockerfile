@@ -154,7 +154,7 @@ RUN apt-get update && \
         --enable-static=yes \
         --enable-shared=no \
         --prefix=/opt/php \
-        --with-apache=/opt/apache \
+        --with-apache=/opt/apache/include \
         --with-config-file-scan-dir=/opt/php/etc/php.conf.d \
         --with-curl=/opt/curl \
         --with-gd \
@@ -187,4 +187,5 @@ RUN apt-get update && \
     make && \
     make install && \
     rm -fr /$PHP.tar.gz /$PHP && \
-    apt-get remove -y wget gcc libcap-dev bzip2 make g++ python autoconf
+    apt-get autoremove -y wget gcc libcap-dev bzip2 make g++ python autoconf && \
+    apt-get clean

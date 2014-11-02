@@ -187,4 +187,5 @@ RUN apt-get update && \
     make && \
     make install && \
     rm -fr /$PHP.tar.gz /$PHP && \
-    apt-get remove -y wget gcc libcap-dev bzip2 make g++ python autoconf
+    apt-get autoremove -y wget gcc libcap-dev bzip2 make g++ python autoconf && \
+    apt-get clean
