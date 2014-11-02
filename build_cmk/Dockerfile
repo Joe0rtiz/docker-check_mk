@@ -22,7 +22,7 @@ RUN apt-get update && \
 RUN adduser nagios
 RUN groupadd nagcmd
 RUN usermod -a -G nagcmd nagios
-RUN usermod -a -G nagcmd apache
+RUN usermod -a -G nagcmd www-data
 
 # install nagios
 RUN agt-get install build-essential && \
