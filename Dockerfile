@@ -38,7 +38,7 @@ RUN apt-get update && apt-get install -y $BUILD_PKGS && \
     cd nagios-$NAGIOS_VERSION && \
     ./configure --with-command-group=nagcmd && \
     make all && \
-    nagios-$NAGIOS_VERSION && make install && \
+    make install && \
     make install-init && \
     make install-config && \
     make install-commandmode && \
