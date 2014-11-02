@@ -145,9 +145,9 @@ RUN apt-get update && \
     ./configure --enable-static --prefix=/opt/libxslt --with-libxml-prefix=/opt/libxml --with-libxml-include-prefix=/opt/libxml/include --with-libxml-libs-prefix=/opt/libxml/lib && \
     make && \
     make install && \
-    rm -fr /$LIBXSLT.tar.gz /$LIBXSLT && \
+    rm -fr /$LIBXSLT.tar.gz /$LIBXSLT
 # build php
-    cd / && wget http://files.directadmin.com/services/custombuild/$PHP.tar.gz && \
+RUN cd / && wget http://files.directadmin.com/services/custombuild/$PHP.tar.gz && \
     tar xf $PHP.tar.gz && \
     cd $PHP && \
     ./configure \
