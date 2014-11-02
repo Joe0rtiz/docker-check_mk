@@ -139,7 +139,7 @@ RUN apt-get update && \
         --enable-static=yes \
         --enable-shared=no \
         --prefix=/opt/php \
-        --with-apache=/opt/apache \
+        --with-apache=/opt/apache/include \
         --with-config-file-scan-dir=/opt/php/etc/php.conf.d \
         --with-curl=/opt/curl \
         --with-gd \
