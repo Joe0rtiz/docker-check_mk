@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM ubuntu:14.04
 MAINTAINER Joe Ortiz
 
 ENV LIBTOOL    libtool-2.4
@@ -55,10 +55,10 @@ RUN apt-get update && \
     cd $HTTPD && \
     ./configure \
               --prefix=/opt/apache \
-#              --exec-prefix=/opt/apache \
-#              --bindir=/opt/apache/bin \
-#              --sbindir=/opt/apache/sbin \
-#              --sysconfdir=/opt/apache/conf \
+              --exec-prefix=/opt/apache \
+              --bindir=/opt/apache/bin \
+              --sbindir=/opt/apache/sbin \
+              --sysconfdir=/opt/apache/conf \
               --enable-so \
               --enable-deflate \
               --enable-unique-id \
@@ -69,10 +69,10 @@ RUN apt-get update && \
               --with-included-apr \
               --with-pcre=/opt/pcre \
               --with-z=/opt/zlib \
-#              --includedir=/opt/apache/include \
-#              --libexecdir=/opt/apache/lib \
-#              --datadir=/opt/apache/www \
-#              --localstatedir=/opt/apache \
+              --includedir=/opt/apache/include \
+              --libexecdir=/opt/apache/lib \
+              --datadir=/opt/apache/www \
+              --localstatedir=/opt/apache \
               --enable-rewrite \
               --enable-expires \
               --enable-reqtimeout \
@@ -145,9 +145,9 @@ RUN apt-get update && \
     ./configure --enable-static --prefix=/opt/libxslt --with-libxml-prefix=/opt/libxml --with-libxml-include-prefix=/opt/libxml/include --with-libxml-libs-prefix=/opt/libxml/lib && \
     make && \
     make install && \
-    rm -fr /$LIBXSLT.tar.gz /$LIBXSLT && \
+    rm -fr /$LIBXSLT.tar.gz /$LIBXSLT
 # build php
-    cd / && wget http://files.directadmin.com/services/custombuild/$PHP.tar.gz && \
+RUN cd / && wget http://files.directadmin.com/services/custombuild/$PHP.tar.gz && \
     tar xf $PHP.tar.gz && \
     cd $PHP && \
     ./configure \
