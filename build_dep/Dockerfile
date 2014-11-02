@@ -145,16 +145,16 @@ RUN apt-get update && \
     ./configure --enable-static --prefix=/opt/libxslt --with-libxml-prefix=/opt/libxml --with-libxml-include-prefix=/opt/libxml/include --with-libxml-libs-prefix=/opt/libxml/lib && \
     make && \
     make install && \
-    rm -fr /$LIBXSLT.tar.gz /$LIBXSLT
+    rm -fr /$LIBXSLT.tar.gz /$LIBXSLT && \
 # build php
-RUN cd / && wget http://files.directadmin.com/services/custombuild/$PHP.tar.gz && \
+    cd / && wget http://files.directadmin.com/services/custombuild/$PHP.tar.gz && \
     tar xf $PHP.tar.gz && \
     cd $PHP && \
     ./configure \
         --enable-static=yes \
         --enable-shared=no \
         --prefix=/opt/php \
-        --with-apache=/opt/apache \
+        --with-apache2=/opt/apache \
         --with-config-file-scan-dir=/opt/php/etc/php.conf.d \
         --with-curl=/opt/curl \
         --with-gd \
