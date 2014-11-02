@@ -65,7 +65,7 @@ RUN apt-get update && \
     make install && \
     apt-get autoremove -y $BUILD_PKGS && \
     apt-get autoclean && \
-    rm -fr /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz nagios-plugins-$NAGIOS_PLUGINS_VERSION
+    rm -fr /nagios-plugins-$NAGIOS_PLUGINS_VERSION.tar.gz /nagios-plugins-$NAGIOS_PLUGINS_VERSION
 
 # install pnp4nagios
 RUN apt-get update && \
@@ -78,7 +78,7 @@ RUN apt-get update && \
     make fullinstall && \
     apt-get autoremove -y $BUILD_PKGS && \
     apt-get autoclean && \
-    rm -fr /pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz pnp4nagios-$PNP4NAGIOS_VERSION /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/etc/config_local.php
+    rm -fr /pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz /pnp4nagios-$PNP4NAGIOS_VERSION /usr/local/pnp4nagios/share/install.php /usr/local/pnp4nagios/etc/config_local.php
 
 COPY pnp4nagios/config.php /usr/local/pnp4nagios/etc/config.php
 COPY pnp4nagios/process_perfdata.cfg /usr/local/pnp4nagios/etc/process_perfdata.cfg
@@ -94,7 +94,7 @@ RUN apt-get update && \
     ./setup.sh --yes && \
     apt-get autoremove -y $BUILD_PKGS && \
     apt-get autoclean && \
-    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz check_mk-$CHECKMK_VERSION
+    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz /check_mk-$CHECKMK_VERSION
 
 # some extra stuff
 # RUN touch /var/www/html/index.html
