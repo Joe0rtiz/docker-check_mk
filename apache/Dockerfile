@@ -14,7 +14,7 @@ RUN apt-get update && \
     cd / && wget http://files.directadmin.com/services/custombuild/$PCRE.tar.gz && \
     tar xf $PCRE.tar.gz && \
     cd $PCRE && \
-    ./configure --enable-static --enable-utf8 --enable-unicode-properties --prefix=/opt/pcre && \
+    ./configure --enable-utf8 --enable-unicode-properties --prefix=/opt && \
     make && \
     make install && \
     rm -fr /$PCRE.tar.gz /$PCRE && \
@@ -22,7 +22,7 @@ RUN apt-get update && \
     cd / && wget http://files.directadmin.com/services/custombuild/$ZLIB.tar.gz && \
     tar xf $ZLIB.tar.gz && \
     cd $ZLIB && \
-    ./configure --prefix=/opt/zlib && \
+    ./configure --prefix=/opt && \
     make && \
     make install && \
     rm -fr /$ZLIB.tar.gz /$ZLIB && \
@@ -50,12 +50,12 @@ RUN apt-get update && \
               --enable-mods-static=most \
               --enable-mpms-shared=all \
               --with-included-apr \
-              --with-pcre=/opt/pcre \
-              --with-z=/opt/zlib \
-              --includedir=/opt/apache/include/apache \
-              --libexecdir=/opt/apache/lib/apache \
+              --with-pcre=/opt \
+              --with-z=/opt \
+              --includedir=/opt/include/apache \
+              --libexecdir=/opt/lib/apache \
               --datadir=/opt/apache/www \
-              --localstatedir=/opt/apache \
+              --localstatedir=/opt \
               --enable-rewrite \
               --enable-expires \
               --enable-reqtimeout \
