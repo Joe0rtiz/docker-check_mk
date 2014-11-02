@@ -55,7 +55,7 @@ RUN apt-get update && \
               --includedir=/opt/include/apache \
               --libexecdir=/opt/lib/apache \
               --datadir=/opt/apache/www \
-              --localstatedir=/opt \
+              --localstatedir=/var \
               --enable-rewrite \
               --enable-expires \
               --enable-reqtimeout \
