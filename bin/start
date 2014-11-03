@@ -4,5 +4,6 @@
 chown nagios.nagcmd -R /data
 chmod g+s /data
 
+/usr/bin/cmk -I localhost
 /usr/bin/cmk -U
 /usr/bin/supervisord
