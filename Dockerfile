@@ -23,8 +23,9 @@ RUN apt-get update && \
                        rrdcached \
                        librrdtool-oo-perl \
                        php5 \
-                       xinetd \
-                       php5-gd && \
+                       php5-gd \
+                       snmp \
+                       xinetd && \
     apt-get autoclean
 
 # users and groups
