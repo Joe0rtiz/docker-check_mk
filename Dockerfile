@@ -106,6 +106,7 @@ RUN apt-get update && \
 COPY nagios/nagios.cfg /usr/local/nagios/etc/nagios.cfg
 COPY nagios/bulknpcd.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
 COPY nagios/nagios.init /etc/init.d/nagios
+RUN chmod 755 /etc/init.d/nagios
 RUN mkdir /var/run/rrdcached
 RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data /var/run/rrdcached
 RUN chmod g+s /usr/local/nagios/var/rw /data
