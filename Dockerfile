@@ -110,5 +110,5 @@ ADD ./bin /app/bin
 
 # Recompile Check_MK Config and then start up nagios, apache, npcd, mkeventd
 ONBUILD ENTRYPOINT [ "/bin/bash" ]
-OMBUILD CMD [ "/app/bin/start" ]
+ONBUILD CMD [ "/app/bin/start" ]
 ONBUILD EXPOSE 80
