@@ -3,7 +3,6 @@
 # Verify Permissions are intact
 chown nagios.nagcmd -R /data
 chown nagios.www-data -R /data/check_mk/wato
-chmod g+s /data
 
 /etc/init.d/xinetd start
 /usr/bin/cmk -II localhost
