@@ -86,6 +86,7 @@ COPY pnp4nagios/process_perfdata.cfg /usr/local/pnp4nagios/etc/process_perfdata.
 # install check_mk
 COPY check_mk/check_mk_setup.conf /root/.check_mk_setup.conf
 COPY check_mk/check_mk_setup.conf /.check_mk_setup.conf
+RUN sed -i 's/NAGIOS_VERSION/$NAGIOS_VERSION/g' /root/.check_mk_setup.conf
 RUN apt-get update && \
     apt-get install -y $BUILD_PKGS && \
     wget -nv -O /check_mk-$CHECKMK_VERSION.tar.gz http://mathias-kettner.com/download/check_mk-$CHECKMK_VERSION.tar.gz && \
@@ -94,7 +95,7 @@ RUN apt-get update && \
     ./setup.sh --yes && \
     apt-get autoremove -y $BUILD_PKGS && \
     apt-get autoclean && \
-    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz /check_mk-$CHECKMK_VERSION
+    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz /check_mk-$CHECKMK_VERSION /root/.check_mk_setup.conf /.check_mk_setup.conf
 
 # some extra stuff
 # RUN touch /var/www/html/index.html
