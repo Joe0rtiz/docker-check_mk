@@ -105,7 +105,7 @@ RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data
 RUN chmod g+s /usr/local/nagios/var/rw /data
 
 # supervisor configuration
-COPY supervisord.conf /etc/supervisord.conf
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./bin /app/bin
 
 # Recompile Check_MK Config and then start up nagios, apache, npcd, mkeventd
