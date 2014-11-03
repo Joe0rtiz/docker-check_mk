@@ -45,7 +45,6 @@ RUN apt-get update && \
     ./configure --with-command-group=nagcmd && \
     make all && \
     make install && \
-    make install-init && \
     make install-config && \
     make install-commandmode && \
     make install-webconf && \
