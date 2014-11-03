@@ -1,4 +1,4 @@
-# install nagios 4.0.8 / nagios plugins 2.0.3 / pnp4nagios 0.6.24 / check_mk 1.2.5i5p4 on Debian
+# install nagios 4.0.8 / nagios plugins 2.0.3 / pnp4nagios 0.6.24 / check_mk 1.2.5i6p1 on Debian
 FROM debian:latest
 
 # info
@@ -7,7 +7,7 @@ MAINTAINER Joe Ortiz version: 0.3
 ENV NAGIOS_VERSION 4.0.8
 ENV NAGIOS_PLUGINS_VERSION 2.0.3
 ENV PNP4NAGIOS_VERSION  0.6.24
-ENV CHECKMK_VERSION 1.2.5i5p4
+ENV CHECKMK_VERSION 1.2.5i6p1
 ENV CHECKMKAGENT_VERSION 1.2.5i6p1-2_all
 
 # update container
