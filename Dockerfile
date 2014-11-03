@@ -114,6 +114,6 @@ COPY supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./bin /app/bin
 
 # Recompile Check_MK Config and then start up nagios, apache, npcd, mkeventd
-ONBUILD ENTRYPOINT [ "/bin/bash" ]
-ONBUILD CMD [ "/app/bin/start" ]
-ONBUILD EXPOSE 80
+ENTRYPOINT [ "/bin/bash" ]
+CMD [ "/app/bin/start" ]
+EXPOSE 80
