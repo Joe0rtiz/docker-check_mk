@@ -92,7 +92,7 @@ RUN apt-get update && \
     wget -nv -O /check_mk-$CHECKMK_VERSION.tar.gz http://mathias-kettner.com/download/check_mk-$CHECKMK_VERSION.tar.gz && \
     tar xf check_mk-$CHECKMK_VERSION.tar.gz && \
     cd check_mk-$CHECKMK_VERSION && \
-    ./setup.sh --yes &&
+    ./setup.sh --yes && \
     wget -nv -O /check_mk-agent_$CHECKMK_VERSION_all.deb http://mathias-kettner.com/download/check-mk-agent_$CHECKMK_VERSION_all.deb && \
     dpkg -i /check_mk-agent_$CHECKMK_VERSION_all.deb && \
     apt-get autoremove -y $BUILD_PKGS && \
