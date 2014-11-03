@@ -4,6 +4,8 @@
 chown nagios.nagcmd -R /data
 chmod g+s /data
 
-/usr/bin/cmk -I localhost
+/etc/init.d/xinetd start
+/usr/bin/cmk -II localhost
+/etc/init.d/xinetd stop
 /usr/bin/cmk -U
 /usr/bin/supervisord
