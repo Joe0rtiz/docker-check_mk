@@ -109,7 +109,7 @@ COPY nagios/nagios.init /etc/init.d/nagios
 RUN chmod 755 /etc/init.d/nagios
 RUN mkdir /var/run/rrdcached
 RUN chown nagios.nagcmd -R /usr/local/nagios/var/rw /data /var/run/rrdcached
-RUN chmod g+s /usr/local/nagios/var/rw /data
+RUN chmod g+s /usr/local/nagios/var/rw
 
 # supervisor configuration
 COPY supervisord.conf /etc/supervisor/supervisord.conf
