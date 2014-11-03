@@ -92,13 +92,13 @@ RUN apt-get update && \
     wget -nv -O /check_mk-$CHECKMK_VERSION.tar.gz http://mathias-kettner.com/download/check_mk-$CHECKMK_VERSION.tar.gz && \
     tar xf check_mk-$CHECKMK_VERSION.tar.gz && \
     cd check_mk-$CHECKMK_VERSION && \
-    ./setup.sh --yes && \
-    wget -nv -O /check_mk-$CHECKMK_VERSION_all.deb http://mathias-kettner.com/download/check_mk-$CHECKMK_VERSION_all.deb && \
-    dpkg -i /check_mk-$CHECKMK_VERSION_all.deb && \
+    ./setup.sh --yes &&
+    wget -nv -O /check_mk-agent_$CHECKMK_VERSION_all.deb http://mathias-kettner.com/download/check-mk-agent_$CHECKMK_VERSION_all.deb && \
+    dpkg -i /check_mk-agent_$CHECKMK_VERSION_all.deb && \
     apt-get autoremove -y $BUILD_PKGS && \
     apt-get autoclean && \
     echo "all_hosts = [ 'localhost' ]" > /data/check_mk_conf/main.mk && \
-    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz /check_mk-$CHECKMK_VERSION /root/.check_mk_setup.conf /check_mk-$CHECKMK_VERSION_all.deb
+    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz /check_mk-$CHECKMK_VERSION /root/.check_mk_setup.conf /check_mk-agent_$CHECKMK_VERSION_all.deb
 
 # some extra stuff
 # RUN touch /var/www/html/index.html
