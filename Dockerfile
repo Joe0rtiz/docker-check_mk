@@ -95,7 +95,7 @@ RUN apt-get update && \
     ./setup.sh --yes && \
     apt-get autoremove -y $BUILD_PKGS && \
     apt-get autoclean && \
-    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz /check_mk-$CHECKMK_VERSION
+    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz /check_mk-$CHECKMK_VERSION /root/.check_mk_setup.conf /.check_mk_setup.conf
 
 # some extra stuff
 # RUN touch /var/www/html/index.html
