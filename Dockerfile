@@ -8,6 +8,7 @@ ENV NAGIOS_VERSION 4.0.8
 ENV NAGIOS_PLUGINS_VERSION 2.0.3
 ENV PNP4NAGIOS_VERSION  0.6.24
 ENV CHECKMK_VERSION 1.2.5i5p4
+ENV CHECKMKAGENT_VERSION 1.2.5i6p1-2_all
 
 # update container
 RUN apt-get update && \
@@ -93,12 +94,12 @@ RUN apt-get update && \
     tar xf check_mk-$CHECKMK_VERSION.tar.gz && \
     cd check_mk-$CHECKMK_VERSION && \
     ./setup.sh --yes && \
-    wget -nv -O /check_mk-agent_${CHECKMK_VERSION}_all.deb http://mathias-kettner.com/download/check-mk-agent_${CHECKMK_VERSION}_all.deb && \
-    dpkg -i /check_mk-agent_${CHECKMK_VERSION}_all.deb && \
+    wget -nv -O /check_mk-agent_${CHECKMKAGENT_VERSION}.deb http://mathias-kettner.com/download/check-mk-agent_${CHECKMKAGENT_VERSION}.deb && \
+    dpkg -i /check_mk-agent_${CHECKMKAGENT_VERSION}.deb && \
     apt-get autoremove -y $BUILD_PKGS && \
     apt-get autoclean && \
     echo "all_hosts = [ 'localhost' ]" > /data/check_mk_conf/main.mk && \
-    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz /check_mk-$CHECKMK_VERSION /root/.check_mk_setup.conf /check_mk-agent_${CHECKMK_VERSION}_all.deb
+    rm -fr /check_mk-$CHECKMK_VERSION.tar.gz /check_mk-$CHECKMK_VERSION /root/.check_mk_setup.conf /check_mk-agent_${CHECKMKAGENT_VERSION}.deb
 
 # some extra stuff
 # RUN touch /var/www/html/index.html
