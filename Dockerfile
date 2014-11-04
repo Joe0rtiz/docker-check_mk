@@ -1,5 +1,5 @@
-# install nagios 4.0.8 / nagios plugins 2.0.3 / pnp4nagios 0.6.24 / check_mk 1.2.5i6p1 on Debian
-FROM debian:latest
+# install nagios 4.0.8 / nagios plugins 2.0.3 / pnp4nagios 0.6.24 / check_mk 1.2.5i6p1 on Ubuntu
+FROM ubuntu:14.04
 
 # info
 MAINTAINER Joe Ortiz version: 0.3
