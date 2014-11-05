@@ -42,7 +42,7 @@ RUN apt-get update && \
     wget -nv -O /nagios-$NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-$NAGIOS_VERSION.tar.gz && \
     tar xf nagios-$NAGIOS_VERSION.tar.gz && \
     cd nagios-$NAGIOS_VERSION && \
-    ./configure --with-command-group=nagcmd && \
+    ./configure --with-command-group=nagcmd --with-httpd-conf=/etc/apache2/conf.d && \
     make all && \
     make install && \
     make install-config && \
