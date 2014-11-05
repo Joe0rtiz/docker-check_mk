@@ -42,7 +42,7 @@ RUN apt-get update && \
     wget -nv -O /nagios-$NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-$NAGIOS_VERSION.tar.gz && \
     tar xf nagios-$NAGIOS_VERSION.tar.gz && \
     cd nagios-$NAGIOS_VERSION && \
-    ./configure --with-command-group=nagcmd --with-httpd-conf=/etc/apache2/conf-available && \
+    ./configure --with-command-group=nagcmd --with-httpd-conf=/etc/apache2/conf-enabled && \
     make all && \
     make install && \
     make install-config && \
@@ -75,7 +75,7 @@ RUN apt-get update && \
     wget -nv -O /pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz http://downloads.sourceforge.net/project/pnp4nagios/PNP-0.6/pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz && \
     tar xf pnp4nagios-$PNP4NAGIOS_VERSION.tar.gz && \
     cd pnp4nagios-$PNP4NAGIOS_VERSION && \
-    ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd --with-perfdata-dir=/data/perfdata --with-perfdata-spool-dir=/data/perfspool && \
+    ./configure --with-nagios-user=nagios --with-nagios-group=nagcmd --with-httpd-conf=/etc/apache2/conf-enabled --with-perfdata-dir=/data/perfdata --with-perfdata-spool-dir=/data/perfspool && \
     make all && \
     make fullinstall && \
     apt-get autoremove -y $BUILD_PKGS && \
