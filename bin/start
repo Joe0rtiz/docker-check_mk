@@ -2,6 +2,7 @@
 
 # Verify Permissions are intact
 chown nagios.nagcmd -R /data
+chown www-data.nagcmd -R /data/check_mk_conf /data/check_mk
 chmod -R g+w /data/mkeventd /data/check_mk_conf /data/check_mk
 rm -fr /usr/local/nagios/var/rw/mkeventd/pid
 /etc/init.d/xinetd start
