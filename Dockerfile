@@ -120,3 +120,5 @@ VOLUME /usr/local/nagios/var
 
 ENTRYPOINT [ "/bin/bash" ]
 CMD [ "/app/bin/start" ]
+
+EXPOSE 80
