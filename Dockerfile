@@ -119,8 +119,8 @@ VOLUME /data
 VOLUME /usr/local/nagios/var
 
 ADD /bin/start /bin/start
-
-ENTRYPOINT [ "/bin/bash" ]
+RUN chmod 755 /bin/start
+#ENTRYPOINT [ "/bin/bash" ]
 CMD [ "/bin/start" ]
 
 EXPOSE 80
