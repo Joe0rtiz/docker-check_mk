@@ -119,6 +119,6 @@ VOLUME /data
 VOLUME /usr/local/nagios/var
 
 ENTRYPOINT [ "/bin/bash" ]
-CMD [ "/app/bin/start" ]
+CMD [ "/bin/start" ]
 
 EXPOSE 80
