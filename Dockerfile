@@ -118,6 +118,8 @@ COPY supervisord.conf /etc/supervisor/supervisord.conf
 VOLUME /data
 VOLUME /usr/local/nagios/var
 
+ADD /bin/start /bin/start
+
 ENTRYPOINT [ "/bin/bash" ]
 CMD [ "/bin/start" ]
 

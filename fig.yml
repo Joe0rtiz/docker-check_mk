@@ -1,0 +1,14 @@
+cmkdata:
+  image: shiekron/btsync
+  volumes:
+    - /data/check_mk:/data
+  ports:
+    - "3369:3369/udp"
+checkmk:
+  image: shiekron/docker-check-mk:latest
+  ports:
+    - "80:80"
+  volumes:
+    - /data/check_mk/var_nagios:/usr/local/nagios/var
+  volumes_from:
+    - cmkdata
