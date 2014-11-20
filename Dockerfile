@@ -25,6 +25,7 @@ RUN apt-get update && \
                        php5 \
                        php5-gd \
                        snmp \
+                       python-pip \
                        xinetd && \
     apt-get autoclean
 
@@ -101,7 +102,10 @@ RUN apt-get update && \
     echo "all_hosts = [ 'localhost' ]" > /data/check_mk_conf/main.mk && \
     rm -fr /check_mk-$CHECKMK_VERSION.tar.gz /check_mk-$CHECKMK_VERSION /root/.check_mk_setup.conf /check_mk-agent_${CHECKMKAGENT_VERSION}.deb
 
-# some extra stuff
+# Extra Monitoring Modules
+# ElasticSearch Plugin to /usr/local/bin/check_elasticsearch
+RUN pip install nagios-plugin-elasticsearch
+
 # RUN touch /var/www/html/index.html
 COPY nagios/nagios.cfg /usr/local/nagios/etc/nagios.cfg
 COPY nagios/bulknpcd.cfg /usr/local/nagios/etc/objects/bulknpcd.cfg
